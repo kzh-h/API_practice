@@ -26,32 +26,29 @@ ENV PATH /opt/anaconda3/bin:$PATH
 #
 # ENV PATH /opt/miniconda/bin:$PATH
 
-RUN pip install --upgrade pip
-# for installing uwsgi
-RUN apt-get update && \
+ADD requirements.txt /opt
+
+# for pip install uwsgi, apt-get and gcc downgrade temporarily
+# heroku CLI install
+# for flask, export LC_ALL and LANG
+RUN pip install --upgrade pip && \
+    apt-get update && \
     apt-get install -y build-essential python-dev && \
     apt install -y gcc-4.8 && \
     rm /usr/bin/gcc && \
-    ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
-
-ADD requirements.txt /opt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# recover gcc
-RUN rm /usr/bin/gcc && \
-    ln -s /usr/bin/gcc-7 /usr/bin/gcc
-
-# symboliclink
-RUN ln -s /opt/anaconda3/lib/libpcre.so.1 /lib/x86_64-linux-gnu && \
+    ln -s /usr/bin/gcc-4.8 /usr/bin/gcc && \
+    pip install --no-cache-dir -r requirements.txt && \
+    rm /usr/bin/gcc && \
+    ln -s /usr/bin/gcc-7 /usr/bin/gcc && \
+    ln -s /opt/anaconda3/lib/libpcre.so.1 /lib/x86_64-linux-gnu && \
     ln -s /opt/anaconda3/lib/libxml2.so.2 /lib/x86_64-linux-gnu && \
     ln -s /opt/anaconda3/lib/libicuuc.so.58 /lib/x86_64-linux-gnu && \
-    ln -s /opt/anaconda3/lib/libicudata.so.58 /lib/x86_64-linux-gnu
-
-# Required for Flask Execution
-RUN export LC_ALL=C.UTF-8 && \
+    ln -s /opt/anaconda3/lib/libicudata.so.58 /lib/x86_64-linux-gnu && \
+    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh && \
+    export LC_ALL=C.UTF-8 && \
     export LANG=C.UTF-8
 
-WORKDIR /usr/work
+WORKDIR /usr/work/app
 
 # 環境変数を設定
 # Pythonがpyc filesとdiscへ書き込むことを防ぐ

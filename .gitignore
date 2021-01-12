@@ -7,4 +7,4 @@ data/raw/raw.csv
 app/uwsgi.log
 app/uwsgi.pid
 
-*/.pytest_chache/
+test/.pytest_chache/

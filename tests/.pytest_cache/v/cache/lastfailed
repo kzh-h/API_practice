@@ -1,0 +1,4 @@
+{
+  "test_001.py::test_normal_input": true,
+  "test_post_normal_input.py::test_normal_input": true
+}

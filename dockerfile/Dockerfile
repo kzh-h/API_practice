@@ -1,0 +1,66 @@
+# use ubuntu
+# FROM ubuntu:latest
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y \
+    sudo \
+    wget \
+    vim
+WORKDIR /opt
+
+# anaconda 3
+# RUN wget https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh && \
+#     sh /opt/Anaconda3-2019.10-Linux-x86_64.sh -b -p /opt/anaconda3 && \
+#     rm -f Anaconda3-2019.10-Linux-x86_64.sh
+# python3.6
+RUN wget https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh && \
+    sh /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/anaconda3 && \
+    rm -f Anaconda3-5.2.0-Linux-x86_64.sh
+
+ENV PATH /opt/anaconda3/bin:$PATH
+
+# # miniconda python37
+# RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh && \
+#     sh /opt/Miniconda3-py37_4.8.2-Linux-x86_64.sh -b -p /opt/miniconda && \
+#     rm -f Miniconda3-py37_4.8.2-Linux-x86_64.sh
+#
+# ENV PATH /opt/miniconda/bin:$PATH
+
+RUN pip install --upgrade pip
+# for installing uwsgi
+RUN apt-get update && \
+    apt-get install -y build-essential python-dev && \
+    apt install -y gcc-4.8 && \
+    rm /usr/bin/gcc && \
+    ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
+
+ADD requirements.txt /opt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# recover gcc
+RUN rm /usr/bin/gcc && \
+    ln -s /usr/bin/gcc-7 /usr/bin/gcc
+
+# symboliclink
+RUN ln -s /opt/anaconda3/lib/libpcre.so.1 /lib/x86_64-linux-gnu && \
+    ln -s /opt/anaconda3/lib/libxml2.so.2 /lib/x86_64-linux-gnu && \
+    ln -s /opt/anaconda3/lib/libicuuc.so.58 /lib/x86_64-linux-gnu && \
+    ln -s /opt/anaconda3/lib/libicudata.so.58 /lib/x86_64-linux-gnu
+
+# Required for Flask Execution
+RUN export LC_ALL=C.UTF-8 && \
+    export LANG=C.UTF-8
+
+WORKDIR /usr/work
+
+# 環境変数を設定
+# Pythonがpyc filesとdiscへ書き込むことを防ぐ
+ENV PYTHONDONTWRITEBYTECODE 1
+# Pythonが標準入出力をバッファリングすることを防ぐ
+ENV PYTHONUNBUFFERED 1
+ENV DEBIAN_FRONTEND=noninteractive
+
+COPY . /usr/work
+
+# WORKDIR /
+# CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

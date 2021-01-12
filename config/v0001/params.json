@@ -1,0 +1,7 @@
+{
+    "n_estimators": 100000,
+    "min_child_samples": 15,
+    "max_depth": 4,
+    "colsample_bytree": 0.7,
+    "random_state": 42
+}

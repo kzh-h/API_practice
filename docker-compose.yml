@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+    # サービス名は自由に設定
+    mlapp:
+        # appディレクトリの中から`Dockerfile`を探す
+        build: ./dockerfile
+        # データを永続化させる場合の設定。`host:container`でパスを記載
+        volumes:
+            - .:/usr/work/
+        # 開放するポートを指定。`host:container`でポートを記載
+        ports:
+            - 1234:8888
+            - 5000:5000
+        # 環境変数を指定
+        # environment:
+        #     # 環境変数に設定するファイル
+        #     - ./app/.env
+        # 起動したままにする
+        tty: true
+

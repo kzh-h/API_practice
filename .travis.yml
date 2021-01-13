@@ -1,5 +1,7 @@
 sudo: required
 
+language: python
+
 services: docker
 
 branches:
@@ -16,7 +18,7 @@ script:
 deploy:
     provider: script
     script:
-        docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
+        docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f dockerfile/Dockerfile.prod .;
         docker push registry.heroku.com/$HEROKU_APP_NAME/web;
         heroku run --app $HEROKU_APP_NAME
     on:

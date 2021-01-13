@@ -48,8 +48,6 @@ RUN pip install --upgrade pip && \
     export LC_ALL=C.UTF-8 && \
     export LANG=C.UTF-8
 
-WORKDIR /usr/work/app
-
 # 環境変数を設定
 # Pythonがpyc filesとdiscへ書き込むことを防ぐ
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -59,7 +57,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # for product
 COPY . /usr/work
-CMD ["uwsgi", "--ini", "uwsgi.ini"]
+WORKDIR /usr/work/app
+CMD ["uwsgi", "--ini", "uwsgi_prod.ini"]
 
 # WORKDIR /
 # CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

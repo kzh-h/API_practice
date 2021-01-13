@@ -12,6 +12,7 @@ services:
         ports:
             - "1234:8888"
             - "5000:5000"
+            - "8080:80"
         # 環境変数を指定
         # environment:
         #     # 環境変数に設定するファイル
@@ -19,8 +20,8 @@ services:
         # 起動したままにする
         tty: true
         # command
-        command:
-            uwsgi --ini uwsgi.ini
+        # command:
+        #     uwsgi --ini uwsgi.ini
     # db:
     #     image: 
     #         postgres:latest

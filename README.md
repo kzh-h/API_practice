@@ -26,17 +26,18 @@ docker-compose exec mlap bash
 - Train model.  
 ```python train.py --input-file params.json --version v<0000>```  
 
-## Flask
-- Run server.   
+## Control server
+- Run server with flask.   
 ```
 cd ./app
 python api.py &
 ```
-- Stop server.
+- Stop server (flask).
 ```
-ps ax | grep flask
+ps ax 
 kill <PID> (or kill -9 <PID>)
 ``` 
+- If stop server (uwsgi), container is down. If develop interface with flask, commentout command in docker-compose.yml and build container.
 
 ## post on CLI
 - on CLI  

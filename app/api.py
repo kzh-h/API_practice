@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime
 
 from flask import Flask, request, jsonify, abort
+from flask import render_template, redirect, url_for
 
 
 # [TODO:] args?
@@ -43,6 +44,30 @@ def error_handler(error):
     return jsonify(response), error.code
 
 
+# access to index
+@app.route('/')
+def index():
+    params = {
+        'title': 'Welcome',
+        'message': 'mlapp',
+    }
+    return render_template('app/index.html', params=params)
+
+
+# access to post
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    params = {
+        'title': 'Welcome',
+        'message': 'mlapp',
+        'name': None,
+    }
+    if request.method == 'POST':
+        params['name'] = request.form['name']
+    return render_template('app/index.html', params=params)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)  # 開発用サーバーの起動
+    # app.run(debug=True)  # 開発用サーバーの起動
+    app.run(host="0.0.0.0", debug=True)  # 開発用サーバーの起動
         

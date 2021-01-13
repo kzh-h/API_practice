@@ -31,9 +31,10 @@ ADD requirements.txt /opt
 # for pip install uwsgi, apt-get and gcc downgrade temporarily
 # heroku CLI install
 # for flask, export LC_ALL and LANG
+# set enviroment to input Japanese
 RUN pip install --upgrade pip && \
     apt-get update && \
-    apt-get install -y build-essential python-dev && \
+    apt-get install -y build-essential python-dev locales && \
     apt install -y gcc-4.8 && \
     rm /usr/bin/gcc && \
     ln -s /usr/bin/gcc-4.8 /usr/bin/gcc && \
@@ -45,8 +46,10 @@ RUN pip install --upgrade pip && \
     ln -s /opt/anaconda3/lib/libicuuc.so.58 /lib/x86_64-linux-gnu && \
     ln -s /opt/anaconda3/lib/libicudata.so.58 /lib/x86_64-linux-gnu && \
     curl https://cli-assets.heroku.com/install-ubuntu.sh | sh && \
-    export LC_ALL=C.UTF-8 && \
-    export LANG=C.UTF-8
+    locale-gen ja_JP.UTF-8 && \
+    echo "export LANG=ja_JP:.UTF-8" >> ~/.bashrc
+    # export LC_ALL=C.UTF-8 && \
+    # export LANG=C.UTF-8
 
 WORKDIR /usr/work/app
 
@@ -56,6 +59,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Pythonが標準入出力をバッファリングすることを防ぐ
 ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND=noninteractive
+# enviroment to input japanese
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL=ja_JP.UTF-8
+RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
 # for product
 # COPY . /usr/work

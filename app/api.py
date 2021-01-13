@@ -66,6 +66,37 @@ def post():
         params['name'] = request.form['name']
     return render_template('app/index.html', params=params)
 
+# access to input
+@app.route('/input', methods=['GET', 'POST'])
+def input():
+    params = {
+        'addresses': [
+            '東京都千代田区',
+            '東京都中央区',
+            '東京都渋谷区',
+            '東京都北区',
+            '東京都江東区',
+        ],
+    }
+    return render_template('app/input.html', params=params)
+
+# access to result
+@app.route('/result', methods=['GET', 'POST'])
+def result():
+    params = {
+        'address': None,
+        'area': None,
+        'building_year': None,
+    }
+    if request.method == 'POST':
+        params['address'] = request.form['address']
+        params['area'] = request.form['area']
+        params['building_year'] = request.form['building_year']
+        return render_template('app/result.html', params=params)
+    else:
+        return redirect(url_for('input'))
+    
+
 
 if __name__ == "__main__":
     # app.run(debug=True)  # 開発用サーバーの起動

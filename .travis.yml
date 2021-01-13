@@ -2,6 +2,10 @@ sudo: required
 
 services: docker
 
+branches:
+    only:
+        - "main"
+
 before_install:
     - docker-compose up --build -d
     - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_API_KEY" registry.heroku.com

@@ -11,7 +11,13 @@
 ```
 cd ./
 docker-compose up -d
+```
+```
 docker exec -it <container> bash
+```
+or
+```
+docker-compose exec mlap bash
 ```
 
 ## Train model
@@ -20,17 +26,28 @@ docker exec -it <container> bash
 - Train model.  
 ```python train.py --input-file params.json --version v<0000>```  
 
-## Flask
-- Run server.   
+## Control server
+- Run server with flask.   
 ```
 cd ./app
 python api.py &
 ```
-- Stop server.
+- Stop server (flask).
 ```
-ps ax | grep flask
+ps ax 
 kill <PID> (or kill -9 <PID>)
 ``` 
+- If stop server (uwsgi), container is down. If develop interface with flask, commentout command in docker-compose.yml and build container.
+
+## post on CLI
+- on CLI  
+  - success  
+  ```curl -X POST -H "Content-Type: application/json" -d '{"address": "東京都千代田区", "area": 30, "building_year": 2013}' localhost/api/predict```
+  - faile
+  ```curl -X POST -H "Content-Type: application/json" -d '{"address": None, "area": 30, "building_year": 2013}' localhost/api/predict```
+- from .json
+```curl -X POST -H "Content-Type: application/json" -d @file.josn' localhost/api/predict```
+
 ## MEMO
 ### 2021-01-12
 - ```pip install uwsgi``` does not work on Ubuntu 20.xx.  

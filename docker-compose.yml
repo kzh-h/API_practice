@@ -12,10 +12,13 @@ services:
         ports:
             - "1234:8888"
             - "5000:5000"
+            - "8080:80"
         # 環境変数を指定
-        # environment:
-        #     # 環境変数に設定するファイル
-        #     - ./app/.env
+        environment:
+            # 環境変数に設定するファイル
+            # - .dockerfile/.env
+            # Time zone
+            TZ: Asia/Tokyo
         # 起動したままにする
         tty: true
         # command

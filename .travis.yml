@@ -2,18 +2,22 @@ sudo: required
 
 services: docker
 
+branches:
+    only:
+        - "main"
+
 before_install:
     - docker-compose up --build -d
-    # - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_API_KEY" registry.heroku.com
+    - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_API_KEY" registry.heroku.com
 
 script:
     - docker-compose exec mlapp pytest ../test/
 
-# deploy:
-#     provider: script
-#     script:
-#         docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
-#         docker push registry.heroku.com/$HEROKU_APP_NAME/web;
-#         heroku run --app $HEROKU_APP_NAME ___
-#     on:
-#         branch: master
+deploy:
+    provider: script
+    script:
+        docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
+        docker push registry.heroku.com/$HEROKU_APP_NAME/web;
+        heroku run --app $HEROKU_APP_NAME
+    on:
+        branch: main

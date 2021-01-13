@@ -8,3 +8,4 @@ app/uwsgi.log
 app/uwsgi.pid
 
 test/.pytest_chache/
+test/logs/

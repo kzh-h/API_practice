@@ -8,25 +8,31 @@
             <div class="row">
             <div class="col-md-12">
                 <p class="lead">
-                {% if params.address %}
-                    Address: {{ params.address }}
-                {% else %}
-                    Address: None
-                {% endif %}
+                    {{ params.message }}
+                </p>
+                <p class="lead">
+                    {% if params.address %}
+                        Address: {{ params.address }}
+                    {% else %}
+                        Address: None
+                    {% endif %}
                 </p>
                 <p class="lead">
                     {% if params.area %}
-                    Area: {{ params.area }}
+                        Area: {{ params.area }}
                     {% else %}
                     Area: None
-                    {% endif %}
+                        {% endif %}
                 </p>
                 <p class="lead">
                     {% if params.area %}
-                    Building year: {{ params.building_year }}
+                        Building year: {{ params.building_year }}
                     {% else %}
-                    Building year: None
+                        Building year: None
                     {% endif %}
+                </p>
+                <p class="lead">
+                    Prediction: {{ params.predict }}
                 </p>
                 <a href="/">Back home</a>
                 <p></p>

@@ -1,5 +1,6 @@
 import sys
 import pickle
+import json
 import pandas as pd 
 
 from datetime import datetime
@@ -92,6 +93,27 @@ def result():
         params['address'] = request.form['address']
         params['area'] = request.form['area']
         params['building_year'] = request.form['building_year']
+
+        try:
+            # predict with LGBM
+            X = pd.DataFrame.from_dict(params, orient='index').T
+            # astype dtype
+            # int is object for some reason.
+            dict_astype = {
+                'area': int,
+                'building_year': int,
+            }
+            X = X.astype(dict_astype)
+            X["trade_date"] = datetime.now()
+            # preprocess
+            X = preprocess.transform(X)
+            # predict
+            y_pred = model.predict(X, num_iteration=model.best_iteration_)
+            params['predict'] = y_pred[0]
+            params['message'] = 'Here is prediction.'
+        except:
+            params['predict'] = 'Can not prediction'
+            params['message'] = 'Error: Something is wrong.'
         return render_template('app/result.html', params=params)
     else:
         return redirect(url_for('input'))

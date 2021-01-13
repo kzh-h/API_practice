@@ -22,8 +22,8 @@ services:
         # 起動したままにする
         tty: true
         # command
-        # command:
-        #     uwsgi --ini uwsgi.ini
+        command:
+            uwsgi --ini uwsgi.ini
     # db:
     #     image: 
     #         postgres:latest

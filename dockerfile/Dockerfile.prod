@@ -58,8 +58,8 @@ ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND=noninteractive
 
 # for product
-# COPY . /usr/work
-# CMD ["uwsgi", "--ini", "uwsgi.ini"]
+COPY . /usr/work
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 
 # WORKDIR /
 # CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

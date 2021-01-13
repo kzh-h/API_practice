@@ -11,7 +11,13 @@
 ```
 cd ./
 docker-compose up -d
+```
+```
 docker exec -it <container> bash
+```
+or
+```
+docker-compose exec mlap bash
 ```
 
 ## Train model
@@ -31,6 +37,16 @@ python api.py &
 ps ax | grep flask
 kill <PID> (or kill -9 <PID>)
 ``` 
+
+## post on CLI
+- on CLI  
+  - success  
+  ```curl -X POST -H "Content-Type: application/json" -d '{"address": "東京都千代田区", "area": 30, "building_year": 2013}' localhost/api/predict```
+  - faile
+  ```curl -X POST -H "Content-Type: application/json" -d '{"address": None, "area": 30, "building_year": 2013}' localhost/api/predict```
+- from .json
+```curl -X POST -H "Content-Type: application/json" -d @file.josn' localhost/api/predict```
+
 ## MEMO
 ### 2021-01-12
 - ```pip install uwsgi``` does not work on Ubuntu 20.xx.  

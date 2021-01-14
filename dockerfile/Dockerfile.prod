@@ -26,7 +26,7 @@ ENV PATH /opt/anaconda3/bin:$PATH
 #
 # ENV PATH /opt/miniconda/bin:$PATH
 
-ADD requirements.txt /opt
+ADD ./dockerfile/requirements.txt /opt
 
 # for pip install uwsgi, apt-get and gcc downgrade temporarily
 # heroku CLI install

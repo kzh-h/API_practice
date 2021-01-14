@@ -51,7 +51,7 @@ kill <PID> (or kill -9 <PID>)
 ## MEMO
 ### 2021-01-14
 - In .travis.yml, since login-user do not have root-authorization when deploy, docker build command is executed with sudo.
-- Deploy with docker container, Procfile is not required. Instead, in Dockerfile.prod CMD <startup server> is written.
+
 ### 2021-01-12
 - ```pip install uwsgi``` does not work on Ubuntu 20.xx.  
   Downgrade to Ubuntu 18.xx, ```apt install gcc-4.8``` and set symboliclink.  

@@ -1,6 +1,7 @@
 import sys
 import pickle
 import json
+import logging
 import pandas as pd 
 
 from datetime import datetime
@@ -14,6 +15,9 @@ VERSION = 'v0001'
 
 sys.path.append('../src/models')
 app = Flask(__name__)
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 preprocess = pickle.load(open(f'../models/{VERSION}/preprocess.pkl', 'rb'))
 model = pickle.load(open(f'../models/{VERSION}/model.pkl', 'rb'))

@@ -126,5 +126,6 @@ def result():
 
 if __name__ == "__main__":
     # app.run(debug=True)  # 開発用サーバーの起動
-    app.run(host="0.0.0.0", debug=True)  # 開発用サーバーの起動
+    # app.run(host="0.0.0.0", debug=True)  # 開発用サーバーの起動
+    app.run(host="0.0.0.0", debug=False)  # for deploy
         

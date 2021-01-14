@@ -16,9 +16,6 @@ VERSION = 'v0001'
 sys.path.append('../src/models')
 app = Flask(__name__)
 
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
-
 preprocess = pickle.load(open(f'../models/{VERSION}/preprocess.pkl', 'rb'))
 model = pickle.load(open(f'../models/{VERSION}/model.pkl', 'rb'))
 
@@ -125,7 +122,6 @@ def result():
 
 
 if __name__ == "__main__":
-    # app.run(debug=True)  # 開発用サーバーの起動
+    app.run(debug=True)  # 開発用サーバーの起動
     # app.run(host="0.0.0.0", debug=True)  # 開発用サーバーの起動
-    app.run(host="0.0.0.0", debug=False)  # for deploy
         

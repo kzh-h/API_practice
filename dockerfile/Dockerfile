@@ -66,6 +66,7 @@ RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
 # for product
 # COPY . /usr/work
+# WORKDIR /usr/work/app
 # CMD ["uwsgi", "--ini", "uwsgi.ini"]
 
 # WORKDIR /

@@ -4,7 +4,11 @@ services:
     # サービス名は自由に設定
     mlapp:
         # 当該ディレクトリの中から`Dockerfile`を探す
-        build: ./dockerfile
+        build: 
+            context:
+                ./dockerfile
+            dockerfile:
+                Dockerfile
         # データを永続化させる場合の設定。`host:container`でパスを記載
         volumes:
             - .:/usr/work/
@@ -13,6 +17,7 @@ services:
             - "1234:8888"
             - "5000:5000"
             - "8080:80"
+            - "3031:3031"
         # 環境変数を指定
         environment:
             # 環境変数に設定するファイル
@@ -22,9 +27,9 @@ services:
         # 起動したままにする
         tty: true
         # command
-        command:
+        # command:
             # uwsgi --ini uwsgi.ini
-            uwsgi --ini uwsgi_prod.ini
+            # uwsgi --ini uwsgi_prod.ini
     # db:
     #     image: 
     #         postgres:latest

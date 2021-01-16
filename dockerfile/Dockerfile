@@ -52,6 +52,9 @@ RUN pip install --upgrade pip && \
     # export LANG=C.UTF-8
 
 WORKDIR /usr/work/app
+# nginx
+RUN apt-get install -y nginx
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 # 環境変数を設定
 # Pythonがpyc filesとdiscへ書き込むことを防ぐ

@@ -49,6 +49,19 @@ kill <PID> (or kill -9 <PID>)
 ```curl -X POST -H "Content-Type: application/json" -d @file.josn' localhost/api/predict```
 
 ## MEMO
+### 2021-01-16
+- Introduce nginx.
+  - How to startup (commentout command in docker-compose.yml).  
+  ```
+  cd /usr/work/app
+  uwsgi --ini uwsgi.ini &
+  nginx -g "daemon off;"  # Startup nginx
+  ```
+  If access on localhost:8080, app's home is displayed.
+  
+### 2021-01-16
+- Since the container has not built in heroku, deployed app has internal error (500).
+- After deploy, login heroku CLI and ```heroku container:release web```, the app may works.
 ### 2021-01-14
 - In .travis.yml, since login-user do not have root-authorization when deploy, docker build command is executed with sudo.
 

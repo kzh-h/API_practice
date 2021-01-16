@@ -19,8 +19,6 @@ deploy:
     provider: script
     skip_cleanup: true
     script:
-        sudo docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f dockerfile/Dockerfile.prod .;
-        sudo docker push registry.heroku.com/$HEROKU_APP_NAME/web;
-        heroku container:release web -a $HEROKU_APP_NAME;
+        bash docker_push.sh
     on:
         branch: main

@@ -66,8 +66,8 @@ RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
 # for product
 COPY . /usr/work
-# WORKDIR /usr/work/app
-# CMD ["uwsgi", "--ini", "uwsgi_prod.ini"]
+WORKDIR /usr/work/app
+CMD ["uwsgi", "--ini", "uwsgi_prod.ini"]
 
 # WORKDIR /
 # CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

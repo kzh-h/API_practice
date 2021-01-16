@@ -23,7 +23,8 @@ services:
         tty: true
         # command
         command:
-            uwsgi --ini uwsgi.ini
+            # uwsgi --ini uwsgi.ini
+            uwsgi --ini uwsgi_prod.ini
     # db:
     #     image: 
     #         postgres:latest

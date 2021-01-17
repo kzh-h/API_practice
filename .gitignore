@@ -6,6 +6,7 @@ data/raw/raw.csv
 
 app/uwsgi.log
 app/uwsgi.pid
+app/uwsgi/
 
 test/.pytest_cache/
 test/logs/

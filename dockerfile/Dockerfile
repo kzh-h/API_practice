@@ -55,6 +55,7 @@ WORKDIR /usr/work/app
 # nginx
 RUN apt-get install -y nginx
 COPY default.conf /etc/nginx/conf.d/default.conf
+# RUN chown -R www-data:www-data /usr/work/app/
 
 # 環境変数を設定
 # Pythonがpyc filesとdiscへ書き込むことを防ぐ

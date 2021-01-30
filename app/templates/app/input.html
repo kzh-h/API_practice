@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="/result" method="post" class="form-inline">
+                    <form action="/api/result" method="post" class="form-inline">
                         <select name="address" method="GET">
                         {% for address in params.addresses %}
                             <option value= "{{address}}" SELECTED>{{address}}</option>"

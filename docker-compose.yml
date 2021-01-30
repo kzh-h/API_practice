@@ -6,17 +6,23 @@ services:
         # 当該ディレクトリの中から`Dockerfile`を探す
         build: 
             context:
-                ./dockerfile
+                ./app
             dockerfile:
                 Dockerfile
+        image:
+            app
+        container_name:
+            mlapp_container
+        # links:
+        #     - mysql
         # データを永続化させる場合の設定。`host:container`でパスを記載
         volumes:
             - .:/usr/work/
         # 開放するポートを指定。`host:container`でポートを記載
         ports:
-            - "1234:8888"
-            - "5000:5000"
-            - "8080:80"
+            # - "1234:8888"
+            # - "5000:5000"
+            # - "8080:80"
             - "3031:3031"
         # 環境変数を指定
         environment:
@@ -30,6 +36,25 @@ services:
         # command:
             # uwsgi --ini uwsgi.ini
             # uwsgi --ini uwsgi_prod.ini
+    
+    webserver:
+        build:
+            context:
+                ./server
+            dockerfile:
+                Dockerfile 
+        image:
+            webserver
+        container_name:
+            server_container
+        links:
+            - mlapp
+        ports:
+            - "8080:80"
+        environment:
+            TZ: "Asia/Tokyo"
+        tty: true
+
     # db:
     #     image: 
     #         postgres:latest

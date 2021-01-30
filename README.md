@@ -17,7 +17,7 @@ docker exec -it <container> bash
 ```
 or
 ```
-docker-compose exec mlap bash
+docker-compose exec <service> bash
 ```
 
 ## Train model

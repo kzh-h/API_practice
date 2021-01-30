@@ -1,5 +1,7 @@
 .vscode
 
+*.env
+
 dockerfile/.env
 
 data/raw/raw.csv

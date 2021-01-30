@@ -52,10 +52,6 @@ RUN pip install --upgrade pip && \
     # export LANG=C.UTF-8
 
 WORKDIR /usr/work/app
-# nginx
-RUN apt-get install -y nginx
-COPY default.conf /etc/nginx/conf.d/default.conf
-# RUN chown -R www-data:www-data /usr/work/app/
 
 # 環境変数を設定
 # Pythonがpyc filesとdiscへ書き込むことを防ぐ
@@ -63,15 +59,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Pythonが標準入出力をバッファリングすることを防ぐ
 ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND=noninteractive
-# enviroment to input japanese
+# environment to input japanese
 ENV LANGUAGE ja_JP:ja
 ENV LC_ALL=ja_JP.UTF-8
 RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
-# for product
-# COPY . /usr/work
-# WORKDIR /usr/work/app
-# CMD ["uwsgi", "--ini", "uwsgi.ini"]
 
-# WORKDIR /
-# CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]
+CMD ["uwsgi","--ini","uwsgi.ini"]
+

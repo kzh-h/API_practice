@@ -47,7 +47,7 @@ def error_handler(error):
 
 
 # access to index
-@app.route('/')
+@app.route('/api/')
 def index():
     params = {
         'title': 'Welcome',
@@ -57,7 +57,7 @@ def index():
 
 
 # access to post
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/api/post', methods=['GET', 'POST'])
 def post():
     params = {
         'title': 'Welcome',
@@ -69,7 +69,7 @@ def post():
     return render_template('app/index.html', params=params)
 
 # access to input
-@app.route('/input', methods=['GET', 'POST'])
+@app.route('/api/input', methods=['GET', 'POST'])
 def input():
     params = {
         'addresses': [
@@ -83,7 +83,7 @@ def input():
     return render_template('app/input.html', params=params)
 
 # access to result
-@app.route('/result', methods=['GET', 'POST'])
+@app.route('/api/result', methods=['GET', 'POST'])
 def result():
     params = {
         'address': None,
